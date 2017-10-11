@@ -130,5 +130,7 @@ myApp.controller("mainController",['$scope','$timeout','$filter',function($scope
 
 $scope.$apply(function(){}) will put your code inside the angular context.
 
+Model ----> Watchers and Digest Cycle -----> View
+
 
 
