@@ -38,7 +38,18 @@
 
 			<div ng-controller="mainController">
                 
-                <h1>Hello world!</h1>
+                <div>
+                    <label>Whats your twitter handle?</label>
+                    <input type="text" ng-model="handle" />
+                    <hr>
+                    twitter.com/{{handle}}
+                    <hr>
+                    <h1>Twitter handle in Lower Case</h1>
+                    twitter.com/{{handleInLowerCase()}}
+                    <hr>
+                    <h1>Twitter handle in Upper Case</h1>
+                    twitter.com/{{handleInUpperCase()}}
+                </div>
                 
             </div>
 
