@@ -104,6 +104,11 @@ Javascript Event Loop + Angularjs Context(Watchers and Digest cycle)
 
 Watchers has old and new value.
 
+Every time we put a variable in $scope.name and associate it to html, angularjs will add this variable to the watcher list and watch this variable old value and new value.
+
+watching and checking for changes is done inside digest loop.
+digest loop will loop over watch list and check if anything changed (from old value and new value) and if any thing changed than digest cycle will updated same in all angular context where that variable is used.
+
 Once a event occur like keypress, click, mouseover, change - Javascript Event Loop will get the Event in the Queue and angularjs has already set up the event listners so once any event occur the watcher will watch the old value with the new value and digest cycle will update same variable inside angular context.
 
 html:
@@ -118,7 +123,7 @@ app.js
 myApp.controller("mainController",['$scope','$timeout','$filter',function($scope,$timeout,$filter){
     
    $scope.handle = '';
-    
+   // manually adding watcher to varible handle
    $scope.$watch('handle',function(newVal, oldVal){
        console.log('Changed!');
        console.log('Old value : ' + oldVal);
@@ -127,10 +132,58 @@ myApp.controller("mainController",['$scope','$timeout','$filter',function($scope
     
 }]);
 
+whenever handle vaiable changes it will call the function (pass as param inside watch)
 
 $scope.$apply(function(){}) will put your code inside the angular context.
 
+myApp.controller("mainController",['$scope','$timeout','$filter',function($scope,$timeout,$filter){
+    
+   $scope.handle = '';
+    
+   $scope.$watch('handle',function(newVal, oldVal){
+       console.log('Changed!');
+       console.log('Old value : ' + oldVal);
+       console.log('New value : ' + newVal);
+   })
+    
+    setTimeout(function(){
+        $scope.$apply(function(){
+            $scope.handle = 'Shalu Choudhary';
+        console.log('Updated!');
+        })
+    },3000);
+    
+    $timeout(function(){
+        $scope.handle = 'Rahul Choudhary';
+    },6000)
+    
+}]);
+
 Model ----> Watchers and Digest Cycle -----> View
+
+Common Directives:
+------------------
+We can have more than one directive on a html element.
+
+ng-if : removes the html in the DOM
+
+ng-hide : hide the html in the DOM, it adds a css class ng-hide
+<div class="alert ng-hide" ng-show="handle.length !== charaters">
+                    Must be 5 Charaters! Using ng-show
+</div>
+
+ng-hide simply adds : css ........display : none !important;......
+
+ng-class : ng-class="{'alert-warning' : handle.length < charaters}
+ng-class takes js object key is css class that we want to apply and value is expression.
+
+ng-repeat : loop over a array
+<h1>Rules</h1>
+                    <ul>
+                        <li ng-repeat="rule in rules" class="alert alert-success">{{rule.rulename}}</li>
+                    </ul> 
+
+
 
 
 

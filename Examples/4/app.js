@@ -12,9 +12,13 @@ myApp.controller("mainController",['$scope','$timeout','$filter',function($scope
     
     setTimeout(function(){
         $scope.$apply(function(){
-            $scope.handle = 'newtwitterHandle';
+            $scope.handle = 'Shalu Choudhary';
         console.log('Updated!');
         })
     },3000);
+    
+    $timeout(function(){
+        $scope.handle = 'Rahul Choudhary';
+    },6000)
     
 }]);

@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en-us" ng-app="angularApp">
+    <head>
+        <title>Introduction to AngularJS</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta charset="UTF-8">
+
+        <!-- load bootstrap and fontawesome via CDN -->
+        <link rel="stylesheet" href="bootstrap.css" />
+        <style>
+            html, body
+            {
+                font-size: 1.1em;
+            }
+        </style>
+        
+        <!-- load angular via CDN -->
+        <script src="angular.js"></script>
+        <script src="app.js"></script>
+    </head>
+    <body>
+
+        <header>
+			<nav class="navbar navbar-default">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="/">AngularJS</a>
+				</div>
+
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+				</ul>
+			</div>
+			</nav>
+		</header>
+
+        <div class="container">
+
+			<div ng-controller="mainController">
+                
+                <div>
+                    <label>Whats your twitter handle?</label>
+                    <input type="text" ng-model="handle" />
+                </div>
+                
+                <div class="alert" ng-class="{ 'alert-warning' : handle.length < charaters, 'alert-danger' : handle.length > charaters, 'alert-success' : handle.length === charaters}">
+                    
+                    <div ng-show="handle.length < charaters">
+                        You have less than 5 Charaters!
+                    </div>
+                    
+                    <div ng-show="handle.length === charaters">
+                        You have 5 Charaters!
+                    </div>
+                    
+                    <div ng-show="handle.length > charaters">
+                        You have more than 5 Charaters!
+                    </div>
+                    
+                </div>
+                
+                
+                
+                    <hr>
+                <div>
+                    twitter.com/{{handle}}
+                    
+                    <h1>Rules</h1>
+                    <ul>
+                        <li ng-repeat="rule in rules" class="alert alert-success">{{rule.rulename}}</li>
+                    </ul>
+                    
+                </div>
+                
+            </div>
+
+		</div>
+
+    </body>
+</html>
