@@ -13,8 +13,10 @@
     We added scope to directive which will isolate the direvtive to access the parent scope
     To access the parent scope we added custom attribute to directive which recive its value from parent scope
     Than we use this custom attribute inside scope, which acts as a model for direvtive and we access it inside template
+
+    We are passing the object directly to directive custom attribute
     -->
-    <search-result person-name="{{person.name}}" person-addresses="{{person.addresses}}"></search-result>
+    <search-result person-object="person" person-object-function="personObjectFunction(aperson)"></search-result>
     
     
 </div>

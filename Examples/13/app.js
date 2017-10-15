@@ -67,9 +67,11 @@ myApp.directive('searchResult', function(){
             //personNameText : '@personName' this is same as below, for below it will think that the personName here is same what we used as attribute on directive.
             
             //personNameText : '@personName', this and below are same
-            personName : '@',
             
-            personAddresses : '@'
+            // = for object its 2 way databinding if we change this object inside directive it will get change for parent scope
+            personObject : '='
+            
+            
             
             
             

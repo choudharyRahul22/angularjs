@@ -67,9 +67,13 @@ myApp.directive('searchResult', function(){
             //personNameText : '@personName' this is same as below, for below it will think that the personName here is same what we used as attribute on directive.
             
             //personNameText : '@personName', this and below are same
-            personName : '@',
             
-            personAddresses : '@'
+            // = for object its 2 way databinding if we change this object inside directive it will get change for parent scope
+            personObject : '=',
+            
+            
+            // & for function
+            personObjectFunction : '&'
             
             
             
@@ -88,7 +92,12 @@ myApp.controller("mainController",['$scope','$timeout','$filter','$http','$locat
     $scope.person = {
         
         name: 'Choudhary, Rahul',
-        addresses : 'VVIP Addresses Rajnagar Extension, 201017'
+        addresses : 'VVIP Addresses Rajnagar Extension,',
+        zip: '201301'
+    }
+    
+    $scope.personObjectFunction = function(person){
+        return person.addresses + ' ' + person.zip;
     }
    
 }]);
