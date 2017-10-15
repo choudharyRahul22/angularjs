@@ -1,0 +1,16 @@
+<label>Search</label>
+<input type="text" value="choudhary">
+
+<h3>Search Results</h3>
+<div class="list-group">
+  
+    <!-- controller for this page is mainController which has person object
+     so person object by default will be availabe to : <search-result> directive 
+
+    So here child <search-result> scope can access parent scope (mainController) , which can be dangerous like 
+    if child changes anything that will affect the parent also.
+    -->
+    <search-result person-name="{{person.name}}"></search-result>
+    
+    
+</div>

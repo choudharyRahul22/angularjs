@@ -427,7 +427,54 @@ myApp.controller("secondController",['$scope','$timeout','$filter','$http','$loc
 
 Custom Directives:
 ------------------
+Html when loaded have the directive <serach-result></serach-result>
+when angularjs see this drirective it will attch the template and we will see below in html.
 
+<search-result>
+	
+	<a href="#" class="list-group-item">
+	<h4 class="list-group-item-heading">Choudhary, Rahul</h4>
+	<p>VVIP Addresses Rajnagar Extension, 201017</p></a>
+
+</search-result>
+
+// Custom Directive : searchResult will be normalize in html as <search-result>
+
+html:
+<h3>Search Results</h3>
+<div class="list-group">
+  
+    <search-result></search-result>
+    <div search-result></div>
+    <div class="search-result"></div>
+    <!-- directive: search-result -->
+    
+</div>
+
+app.js:
+myApp.directive('searchResult', function(){
+    
+    return{
+        
+        // A: Attribute E: Element C:Class M: Comment , What we specify in restrict will show in DOM , rest will be ignored.
+        // restrict : 'EA' is default property
+        restrict : 'AECM',
+        
+        // html that will be shown
+        templateUrl: 'directive/searchResult.html',
+        
+        // this will remove the directive (<serach-result>) from the DOM if true and will conatin only template in DOM
+        // if false template will come under <search-result> element. 
+        replace : true,
+        
+        
+        
+    }
+    
+})
+
+Scope:
+------
 
 
 

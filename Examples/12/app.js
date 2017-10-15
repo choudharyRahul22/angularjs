@@ -59,6 +59,19 @@ myApp.directive('searchResult', function(){
         // if false template will come under <search-result> element. 
         replace : true,
         
+        // This is the model for the directive view
+        // Now the default property ie: child can access the parent scope will be restricted
+        scope: {
+            
+            // @ for text
+            //personNameText : '@personName' this is same as below, for below it will think that the personName here is same what we used as attribute on directive.
+            
+            personName : '@'
+            
+            
+            
+        }
+        
         
         
     }
@@ -68,7 +81,12 @@ myApp.directive('searchResult', function(){
 
 // Controller
 myApp.controller("mainController",['$scope','$timeout','$filter','$http','$location','$log','nameService',function($scope,$timeout,$filter,$http,$location,$log,nameService){
-    
+   
+    $scope.person = {
+        
+        name: 'Choudhary, Rahul',
+        addresses : 'VVIP Addresses Rajnagar Extension, 201017'
+    }
    
 }]);
 
