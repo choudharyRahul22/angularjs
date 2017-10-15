@@ -14,4 +14,9 @@ myApp.controller("mainController",['$scope','$timeout','$filter',function($scope
        
    ]
     
+    $scope.btnClicked = function(){
+        console.log('clicked');
+        alert('Button is clicked!');
+    }
+    
 }]);

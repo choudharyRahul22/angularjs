@@ -178,10 +178,266 @@ ng-class : ng-class="{'alert-warning' : handle.length < charaters}
 ng-class takes js object key is css class that we want to apply and value is expression.
 
 ng-repeat : loop over a array
+app.js:
+$scope.rules = [
+       
+       {'rulename' : 'Must be 5 charater'},
+       {'rulename' : 'Must not be used elsewhere'},
+       {'rulename' : 'Must be cool'}
+       
+   ]
+html:
 <h1>Rules</h1>
                     <ul>
                         <li ng-repeat="rule in rules" class="alert alert-success">{{rule.rulename}}</li>
                     </ul> 
+
+
+ng-click: ng-click="btnClicked()"
+ng-clock: hide element in DOM until js work on it.
+
+Angular Doc : https://docs.angularjs.org/api/ng/directive
+
+XMLHTTPRequest Object:
+----------------------
+// All native browser implement this object.
+    var request = new XMLHttpRequest();
+    
+    // Develope by Microsoft for Outlook Web Request
+    
+    request.onreadystatechange = function(){
+        
+        // readyState : request is ready to go out to take data from internet
+        // status : status 200 shows request is successful
+        if(request.readyState == 4 && request.status == 200){
+            
+            // responseText : data that came as response from internet
+            $scope.data = JSON.parse(request.responseText);
+        }
+        
+        
+    }
+    
+    request.open('GET', 'URL', true);
+    
+    // it send the request when finishes it fire the onreadystatechange
+    request.send();
+
+External Data and $http:
+------------------------
+// get
+    $http.get('URL')
+         .success(function(result){
+         
+            console.log(result);
+        
+    })   .error(function(data,status
+                          
+            console.log(data);
+        
+    })
+    
+    
+    // post
+    $http.post('URL',{ 'key' : value })
+         .success(function(result){
+         
+            console.log(result);
+        
+    })   .error(function(data,status
+                          
+            console.log(data);
+        
+    })
+
+
+Multiple Controller and Multiple View:
+--------------------------------------
+html:
+<div ng-controller="mainController">
+                
+                <h1>{{name}}</h1>
+                
+            </div>
+            
+            <div ng-controller="secondController">
+                
+                <h1>{{name}}</h1>
+                
+            </div>
+</div>
+
+app.js
+myApp.controller("mainController",['$scope','$timeout','$filter','$http',function($scope,$timeout,$filter,$http){
+    
+    $scope.name = "Main";
+    
+}]);
+
+
+myApp.controller("secondController",['$scope','$timeout','$filter','$http',function($scope,$timeout,$filter,$http){
+    
+    $scope.name = "Second";
+    
+}]);
+
+Note : $scope is prototype in nature and rest of services are singleton in nature.
+
+Routing Templates and Controllers:
+----------------------------------
+html:
+<div class="container">
+            
+            <div ng-view></div>
+
+</div>
+
+app.js
+myApp.config(function($routeProvider){
+    
+    $routeProvider
+                
+                 // takes url and object
+                 .when('/',{
+                        
+                        // templateUrl : actual physical location of html page and COntroller
+                           templateUrl : 'pages/main.html',
+                           controller : 'mainController'
+                        } )
+            
+                 .when('/second',{
+        
+                           templateUrl : 'pages/second.html',
+                           controller : 'secondController'
+        
+                        } )
+    
+})
+
+myApp.controller("mainController",['$scope','$timeout','$filter','$http','$location','$log',function($scope,$timeout,$filter,$http,$location,$log){
+    
+    $scope.name = "Main";
+    
+    // This will grab whatever will come after # like http://127.0.0.1:55538/index.htm#/book/4 will give /book/4
+    $log.info($location.path());
+    
+}]);
+
+
+myApp.controller("secondController",['$scope','$timeout','$filter','$http','$location','$log',function($scope,$timeout,$filter,$http,$location,$log){
+    
+    $scope.name = "Second";
+    
+    
+    
+}]);
+
+Custom Services:
+----------------
+All $scope are child scope that inherit from $root scope and $scope is exception while other services are singleton in nature, $scope is prototype in nature.
+
+Whenever we move from one to other page a new request is made html is loaded. New memory is created for js and all previous data will gone.
+
+Inside Single Page Application if we move from one page to other we still get the same memory space.We can share the js data across the pages.
+
+Services are used when we need to share data across pages (SPA).
+
+Factories concept are same as services.
+
+var myApp = angular.module("angularApp",['ngRoute']);
+
+// Routing Code
+myApp.config(function($routeProvider){
+    
+    $routeProvider
+                
+                 // takes url and object
+                 .when('/',{
+                        
+                        // templateUrl : actual physical location of html page and COntroller
+                           templateUrl : 'pages/main.html',
+                           controller : 'mainController'
+                        } )
+    
+    
+                  .when('/second',{
+        
+                           templateUrl : 'pages/second.html',
+                           controller : 'secondController'
+        
+                        } )
+            
+                 .when('/second/:num',{
+        
+                           templateUrl : 'pages/second.html',
+                           controller : 'secondController'
+        
+                        } )
+    
+})
+
+// Custom Service : Singleton in nature
+myApp.service('nameService',function(){
+    
+    var self = this;
+    
+    self.name = 'Rahul';
+    
+    self.nameLength = function(){
+        return self.name.length;
+    }
+    
+})
+
+
+// Controller
+myApp.controller("mainController",['$scope','$timeout','$filter','$http','$location','$log','nameService',function($scope,$timeout,$filter,$http,$location,$log,nameService){
+    
+    console.log(nameService);
+    
+    $scope.name = nameService.name;
+    
+    // We will add a eventlistner watch on name , once name updated we will update the nameService.name in angular context
+    $scope.$watch('name',function(){
+        nameService.name = $scope.name;
+    })
+    
+    
+    // This will grab whatever will come after # like http://127.0.0.1:55538/index.htm#/book/4 will give /book/4
+    $log.info($location.path());
+    
+}]);
+
+
+myApp.controller("secondController",['$scope','$timeout','$filter','$http','$location','$log','$routeParams','nameService',function($scope,$timeout,$filter,$http,$location,$log,$routeParams,nameService){
+    
+    $scope.name = nameService.name;
+    
+    // We will add a eventlistner watch on name , once name updated we will update the nameService.name in angular context
+     $scope.$watch('name',function(){
+        nameService.name = $scope.name;
+    })
+    
+    $scope.num = $routeParams.num || 10 ;
+
+    
+    
+}]);
+
+
+Custom Directives:
+------------------
+
+
+
+
+
+
+
+
+
+
+
 
 
 
