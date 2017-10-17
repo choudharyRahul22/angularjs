@@ -1,0 +1,24 @@
+<label>Search</label>
+<input type="text" value="choudhary">
+
+<h3>Search Results</h3>
+<div class="list-group" >
+  
+    <!-- controller for this page is mainController which has person object
+     so person object by default will be availabe to : <search-result> directive 
+
+    So here child <search-result> scope can access parent scope (mainController) , which can be dangerous like 
+    if child changes anything that will affect the parent also.
+
+    We added scope to directive which will isolate the direvtive to access the parent scope
+    To access the parent scope we added custom attribute to directive which recive its value from parent scope
+    Than we use this custom attribute inside scope, which acts as a model for direvtive and we access it inside template
+
+    We are passing the object directly to directive custom attribute
+    -->
+    <search-result person-object="person" person-object-function="personObjectFunction(aperson)" ng-repeat="person in persons">
+        *search result may not be valid!
+    </search-result>
+    
+    
+</div>

@@ -1,0 +1,16 @@
+<a href="#" class="list-group-item">
+    
+    <small ng-transclude></small>
+    
+    
+    <!-- person object is by deafult avialabe to this custom directive -->
+    <h4 class="list-group-item-heading">{{personObject.name}}</h4>
+    
+    <!--function takes param in object map form or mapping object-->
+    <p>{{personObjectFunction({aperson: personObject})}}</p>
+    
+    
+    <small><ng-transclude></ng-transclude></small>
+    
+   
+</a>
