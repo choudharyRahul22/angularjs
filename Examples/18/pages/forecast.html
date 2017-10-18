@@ -1,0 +1,25 @@
+<p><a href="#/">Back to Serach</a></p>
+Forecast for City : {{cityName}}
+<hr/>
+
+Days : <a href="#/forecast/2" ng-class="{'bg-primary': numOfDays == '2'}">2</a> | <a href="#/forecast/3" ng-class="{'bg-primary': numOfDays == '3'}">3</a> | <a href="#/forecast/4" ng-class="{'bg-primary': numOfDays == '4'}">4</a>
+
+<hr/>
+
+<div ng-repeat='forecastResul in forecastResultList track by $index'>
+    <div class="row" ng-if='forecastResul.city === cityName && $index <= numOfDays-1'>
+        <div class="col-md-12">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-tittle">
+                        {{forecastResul.date | date : 'MMM d,y'}}
+                    </h3>
+                </div>
+                
+                <div class="panel-body">
+                    Daytime Temp : {{forecastResul.temp}}
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
