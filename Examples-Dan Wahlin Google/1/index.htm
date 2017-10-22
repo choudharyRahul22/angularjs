@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en-us" ng-app>
+    <head>
+        <title>Introduction to AngularJS</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta charset="UTF-8">
+
+        <!-- load bootstrap and fontawesome via CDN -->
+        <link rel="stylesheet" href="bootstrap.css" />
+        <style>
+            html, body
+            {
+                font-size: 1.1em;
+            }
+        </style>
+        
+        <!-- load angular via CDN -->
+        <script src="angular.js"></script>
+        <script src="angular-route.js"></script>
+        <script src="angular-resource.js"></script>
+        <script src="app.js"></script>
+       
+        
+        
+    </head>
+    <body>
+
+        <header>
+			<nav class="navbar navbar-default">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="/">Weather App</a>
+				</div>
+
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#/"><i class="fa fa-home"></i> Home</a></li>
+                    <li><a href="#/forecast"><i class="fa fa-home"></i> Forecast</a></li>
+				</ul>
+			</div>
+			</nav>
+		</header>
+
+        <div class="container">
+            <div ng-hide="isHidden" ng-init="name='Default'">
+                Name : <input type="text" ng-model="name" >{{name}}<br/>
+            </div>
+
+            Hide : <input type="checkbox" ng-model="isHidden"><br/>
+
+            <button ng-click="name='Rahul'">Change Name</button>
+
+            <hr>
+
+            <div>
+
+                <label>All Customers</label><br>
+                Filter : <input type="text" ng-model="customFilter"><br>
+                Filter : <input type="text" ng-model="customFilter1.name"><br>
+                <table>
+                    <tr>
+                        <th ng-click="sortBy='name';reverse=!reverse">Name</th>
+                        <th ng-click="sortBy='salary';reverse=!reverse">Salary</th>
+                        <th ng-click="sortBy='joinDate';reverse=!reverse">Join Date</th>
+                        <th ng-click="sortBy='city';reverse=!reverse">City</th>
+                    </tr>
+                    <tr ng-repeat="customer in customers | filter:customFilter | limitTo:4 | orderBy:sortBy:reverse">
+                        <td>{{customer.name | uppercase}}</td>
+                        <td>{{customer.salary | currency:"&#8377;"}}</td>
+                        <td>{{customer.joinDate | date}}</td>
+                        <td>{{customer.city | lowercase}}</td>
+                    </tr>
+
+                </table>
+
+
+
+            </div>
+
+
+
+
+		</div>
+
+    </body>
+</html>

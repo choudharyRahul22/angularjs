@@ -729,6 +729,21 @@ Transclusion:
 -------------
 Include one document inside another.
 
+Note:
+Put js inside body at last so that html will load first than js.
+
+Note:
+Name : <input type="text" ng-model="name"><br>
+       <h3>{{name}}</h3>
+
+Here the name property is living in root scope of angularjs.
+
+Note:
+History in angularjs maintain by history.js (navigation html pages)
+
+Note:
+$routeProvider : default case
+.otherwise({redirectTo:'/'})
 
 
 
