@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en-us" ng-app="angularApp">
+    <head>
+        <title>Introduction to AngularJS</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta charset="UTF-8">
+
+        <!-- load bootstrap and fontawesome via npm-->
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css" />
+        <style>
+            html, body
+            {
+                font-size: 1.1em;
+            }
+        </style>
+        
+        <!-- load angular via npm -->
+        <script src="node_modules/angular/angular.js"></script>
+        <script src="node_modules/angular-messages/angular-messages.js"></script>
+        <script src="node_modules/angular-resource/angular-resource.js"></script>
+        <script src="app.js"></script>
+    </head>
+    <body>
+
+        <header>
+			<nav class="navbar navbar-default">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="/">AngularJS</a>
+				</div>
+
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#"><i class="fa fa-home"></i> Home</a></li>
+				</ul>
+			</div>
+			</nav>
+		</header>
+
+        <div class="container">
+
+			<div ng-controller="mainController">
+
+                <h1>Hello World</h1>
+
+                <hr>
+                <input type="text" ng-model="yourName">
+                <p>{{yourName}}</p>
+
+                <hr>
+                <form name="myForm">
+                           <label>
+                            Enter your name:
+                             <input type="text" name="myName" ng-model="name" ng-minlength="5" ng-maxlength="20" required />
+                           </label>
+
+                           <!--<pre>myForm.myName.$error = {{ myForm.myName.$error }}</pre>-->
+
+                           <div ng-messages="myForm.myName.$error" style="color:maroon" role="alert">
+                             <div ng-message="required">You did not enter a field</div>
+                             <div ng-message="minlength">Your field is too short</div>
+                             <div ng-message="maxlength">Your field is too long</div>
+                           </div>
+                </form>
+
+
+            </div>
+
+		</div>
+
+    </body>
+</html>

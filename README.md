@@ -1,18 +1,16 @@
 Learn And Understand Angularjs
 ------------------------------
-
 Problem that angularjs trying to solve:
-1. Model , View , Whatever.... angularjs has something that will bind the js objects,  
-   variables to the HTML (DOM) automatically.
+1. Model , View , Whatever.... angularjs has something that will bind the js objects, variables to the HTML (DOM) and vise versa automatically.
 
-Modules Apps Controllers:
--------------------------
+Modules & Controllers:
+----------------------
 We have a global angular object "angular".
 We can create a new global variable using "angular":
-var myApp = angular.module("app-name",[dependencies]);
+var angularApp = angular.module("angularApp",[dependencies]);
 
 <html lang="en-us" ng-app="angularApp">
-we angular sees ng-app 'custom directive' it look for angularApp module.
+when angular sees ng-app 'custom directive' it look for angularApp module.
 
 similarly : <div ng-controller="mainController"> will look for custom attribute ng-controller on angularApp module.
 
@@ -20,9 +18,6 @@ builtin services we have : $scope $log $filters ....
 
 Minification:
 -------------
-We define the services as a string in a array.
-Note: order should be same in function param also.
-
 myApp.controller("mainController",['$scope','$log','$filter',function($scope,$log,$filter){
     
     console.log($scope);
@@ -34,11 +29,30 @@ myApp.controller("mainController",['$scope','$log','$filter',function($scope,$lo
     
 }]);
 
+We define the services as a string in a array.
+Note: order should be same in function param also.
+
+How $scope Works?
+-----------------
+angularApp.controller('mainController', ['$scope', function ($scope) {
+    $scope.name = '';
+}]);
+Behind The Scen: angularApp.controller.toString() will give the string representation of function. We will parse the function and get all parameters pass to this function. Now if parameter matches like '$scope' we will give the $scope object to this parameter.
+
+We can also check this :
+var serachPeople =  function (firstName, lastName) {
+    return 'Rahul Choudhary';
+}
+console.log(angular.injector().annotate(serachPeople));
+console out: ["firstName", "lastName"]
+
 Scope and Interpolation:
 ------------------------
 Interpolation : creating a string by combining strings and placeholders like 
 var name = 'Rahul Choudhary';
 console.log('Hello ' + name); 
+
+Scope: scope of variable will be inside the controller.
 
 html:
 <div ng-controller="mainController">           
@@ -61,7 +75,7 @@ myApp.controller("mainController",['$scope','$timeout',function($scope,$timeout)
 Directives and Two Way Databinding:
 -----------------------------------
 Directives : An instruction to angularjs to manipulate a piece of DOM.
-Sits in html starts with ng-**.
+used in html to change dom.
 
 Example : ng-model - 2 way databinding binds html element to the js variable.
 
@@ -98,7 +112,9 @@ myApp.controller("mainController",['$scope','$timeout','$filter',function($scope
 
 Watchers and Digest Loop:
 -------------------------
-Angularjs is adding eventlisten rs for us and extends the javascript event loop to listen to the events.
+In javascript when ever any event happens on DOM then that event will go inside javascript event queue as js is single threaded so first the current execution context (current running code) of js will be finished after that event from event loop will be performed.
+
+Angularjs is adding eventlistenrs for us and extends the javascript event loop to listen these events.
 
 Javascript Event Loop + Angularjs Context(Watchers and Digest cycle)
 
@@ -175,7 +191,7 @@ ng-hide : hide the html in the DOM, it adds a css class ng-hide
 ng-hide simply adds : css ........display : none !important;......
 
 ng-class : ng-class="{'alert-warning' : handle.length < charaters}
-ng-class takes js object key is css class that we want to apply and value is expression.
+ng-class takes js object : key is css class that we want to apply and value is expression.
 
 ng-repeat : loop over a array
 app.js:
@@ -257,8 +273,6 @@ html:
 <div ng-controller="mainController">
                 
                 <h1>{{name}}</h1>
-                
-            </div>
             
             <div ng-controller="secondController">
                 
@@ -300,7 +314,7 @@ myApp.config(function($routeProvider){
                  // takes url and object
                  .when('/',{
                         
-                        // templateUrl : actual physical location of html page and COntroller
+                        // templateUrl : actual physical location of html page and Controller
                            templateUrl : 'pages/main.html',
                            controller : 'mainController'
                         } )
@@ -430,6 +444,8 @@ Custom Directives:
 Html when loaded have the directive <serach-result></serach-result>
 when angularjs see this drirective it will attch the template and we will see below in html.
 
+Same as component in Angular2.
+
 <search-result>
 	
 	<a href="#" class="list-group-item">
@@ -466,11 +482,9 @@ myApp.directive('searchResult', function(){
         // this will remove the directive (<serach-result>) from the DOM if true and will conatin only template in DOM
         // if false template will come under <search-result> element. 
         replace : true,
-        
-        
-        
+             
     }
-    
+     
 })
 
 Scope '@'' text:
@@ -549,7 +563,7 @@ myApp.directive('searchResult', function(){
         templateUrl: 'directive/searchResult.html',
         
         // this will remove the directive (<serach-result>) from the DOM if true and will conatin only template in DOM
-        // if false template will come under <search-result> element. 
+        // if false  template will come under <search-result> element. 
         replace : true,
         
         // This is the model for the directive view
@@ -607,7 +621,9 @@ myApp.directive('searchResult', function(){
             personObject : '=',
             
             
-            // & for function
+            // & for function 
+            // we need to pass the parameter of function as a object map
+            // like functionName({aperson: personObject})
             personObjectFunction : '&'
             
             
@@ -745,8 +761,50 @@ Note:
 $routeProvider : default case
 .otherwise({redirectTo:'/'})
 
+Note:
+Create Rest API using NodeJs
+
+server.js:
+---------
+var express = require('express'),
+  app=express();
 
 
+app.get('/customers',function (req,res) {
+    res.json(customers);
+})
+
+var port = process.env.PORT || 5000;
+app.listen(port, function() {
+    console.log("Listening on " + port);
+});
+
+var customers = [
+    {joinDate:'11-22-2017',name:'Rahul',salary:'55000',city:'Bareilly'},
+    {joinDate:'10-22-2017',name:'Shalu',salary:'54000',city:'Noida'},
+    {joinDate:'18-22-2017',name:'Shubham',salary:'57000',city:'Delhi'},
+    {joinDate:'19-22-2017',name:'Kuldeep',salary:'51000',city:'Ghaziabad'}
+
+
+]
+
+Go to Dir where server.js file is kept : your project dir
+Run : npm install express
+Run : node server.js
+check on port that you define like : localhost:5000/customers
+
+
+Webstrom:
+---------
+npm install -g bower
+bower install angular --save
+bower install bootstrap
+index.html browser icon will come run it
+
+
+npm install angular --save
+npm install bootstrap
+index.html browser icon will come run it
 
 
 

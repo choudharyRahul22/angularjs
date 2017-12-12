@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en-us" ng-app="angularApp">
+    <head>
+        <title>Introduction to AngularJS</title>
+        <meta http-equiv="X-UA-Compatible" content="IE=Edge">
+        <meta charset="UTF-8">
+
+        <!-- load bootstrap and fontawesome via npm-->
+        <link rel="stylesheet" href="node_modules/bootstrap/dist/css/bootstrap.css" />
+        <style>
+            html, body
+            {
+                font-size: 1.1em;
+            }
+        </style>
+        
+        <!-- load angular via npm -->
+        <script src="node_modules/angular/angular.js"></script>
+        <script src="node_modules/angular-messages/angular-messages.js"></script>
+        <script src="node_modules/angular-resource/angular-resource.js"></script>
+        <script src="node_modules/angular-route/angular-route.js"></script>
+        <script src="app-main.js"></script>
+        <script src="app-routing.js"></script>
+        <script src="src/login/login.js"></script>
+        <script src="src/register/register.js"></script>
+        <script src="src/tracker/tracker.js"></script>
+    </head>
+    <body>
+
+        <!-- Use header as directive-->
+        <header>
+			<nav class="navbar navbar-default">
+			<div class="container">
+				<div class="navbar-header">
+					<a class="navbar-brand" href="#">Tracker</a>
+					<a class="navbar-brand" href="#/tracker">Log</a>
+				</div>
+
+				<ul class="nav navbar-nav navbar-right">
+					<li><a href="#/login"><i class="fa fa-home"></i>Login</a></li>
+					<li><a href="#/register"><i class="fa fa-home"></i>Register</a></li>
+				</ul>
+			</div>
+			</nav>
+		</header>
+
+        <div class="container">
+
+			<div ng-view></div>
+
+		</div>
+
+    </body>
+</html>

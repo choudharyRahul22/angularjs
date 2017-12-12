@@ -1,0 +1,442 @@
+<div class="row">
+
+    <div class="col-xs-12 col-sm-10 col-md-8 col-sm-offset-1 col-md-offset-2">
+        <form [formGroup]="trackerForm" (ngSubmit)="onSubmit()">
+            <h3 style="text-align: center">Jira Description</h3>
+            <!-- Month -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="month">Month</label>
+                        <select class="form-control" id="month" formControlName="monthName" [ngModel]="defaultMonthName.monthName">
+                            <option *ngFor="let mn of monthName" [selected]="mn.monthName === defaultMonthName.monthName">{{mn.monthName}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Jira Id -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="jiraId">Jira ID</label>
+                        <input
+                                type="text"
+                                id="jiraId"
+                                class="form-control" formControlName="jiraId">
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Customer -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="customerName">Customer Name</label>
+                        <select class="form-control" id="customerName" formControlName="customerName">
+                            <option *ngFor="let cn of customerName">{{cn}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Description -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="jiraDescription">Jira Description</label>
+                        <input
+                                type="text"
+                                id="jiraDescription"
+                                class="form-control" formControlName="jiraDescription">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Developer -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="developerName">Developer Name</label>
+                        <select class="form-control" id="developerName" name="developerName" formControlName="developerName" [ngModel]="defaultDeveloperName.name">
+                            <option *ngFor="let dn of developerName" [selected]="dn.id === defaultDeveloperName.empId">{{dn.name}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Priority -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="priority">Priority</label>
+                        <div class="radio-inline" *ngFor="let p of priority">
+                            <li>
+                                <input id="priority" type="radio" name="priority" formControlName="priority" [value]="p">{{p}}
+                            </li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- Severity -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="severity">Severity</label>
+                        <div class="radio-inline" *ngFor="let s of severity">
+                            <li>
+                                <input id="severity" type="radio" name="severity" formControlName="severity" [value]="s">{{s}}
+                            </li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Version -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="version">Version</label>
+                        <input
+                                type="text"
+                                id="version"
+                                class="form-control" formControlName="version">
+                    </div>
+                </div>
+            </div>
+
+            <!-- ETA To FIX -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="etaToFix">Eta To Fix</label>
+                        <input
+                                type="date"
+                                id="etaToFix"
+                                class="form-control" formControlName="etaToFix">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Defect type -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="defectType">Defect Type</label>
+                        <div class="radio-inline" *ngFor="let dt of defectType">
+                            <li>
+                                <input id="defectType" type="radio" name="defectType" formControlName="defectType" [value]="dt">{{dt}}
+                            </li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <h3 style="text-align: center">Defect Status</h3>
+
+            <!-- Start Date -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="startDate">Start Date</label>
+                        <input
+                                type="date"
+                                id="startDate"
+                                class="form-control" formControlName="startDate">
+                    </div>
+                </div>
+            </div>
+
+            <!-- End Date -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="endDate">End Date</label>
+                        <input
+                                type="date"
+                                id="endDate"
+                                class="form-control" formControlName="endDate">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Status -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="jiraStatus">Jira Status</label>
+                        <select class="form-control" id="jiraStatus" formControlName="status">
+                            <option *ngFor="let st of status">{{st}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Step To Reproduce-->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="stepToReproduce">Step To Reproduce</label>
+                        <div class="radio-inline" *ngFor="let str of stepToReproduce">
+                            <li>
+                                <input id="stepToReproduce" type="radio" name="stepToReproduce" formControlName="stepToReproduce" [value]="str">{{str}}
+                            </li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Steps to Reproduce - Details if any -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="stepToReproduceDetailsIfAny">Steps to Reproduce - Details if any</label>
+                        <textarea id="stepToReproduceDetailsIfAny" name="stepToReproduceDetailsIfAny" rows="3" class="form-control" formControlName="stepToReproduceDetailsIfAny"></textarea>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Follow Up With GS2: -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="followUpWithGS2">Follow Up With GS2</label>
+                        <div class="radio-inline" *ngFor="let fuwgs2 of followUpWithGS2">
+                            <li>
+                                <input id="followUpWithGS2" type="radio" formControlName="followUpWithGS2" [value]="fuwgs2">{{fuwgs2}}
+                            </li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <h3 style="text-align: center">Time Taken (In Hours)</h3><br>
+
+            <!-- Environment Setup: -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="environmentSetup">Environment Setup</label>
+                        <input
+                                type="number"
+                                id="environmentSetup"
+                                class="form-control" formControlName="environmentSetup">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Analysis: -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="analysis">Analysis</label>
+                        <input
+                                type="number"
+                                id="analysis"
+                                class="form-control" formControlName="analysis">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Developement -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="devlopement">Developement</label>
+                        <input
+                                type="number"
+                                id="devlopement"
+                                class="form-control" formControlName="devlopement">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Code Review: -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="codeReview">Code Review</label>
+                        <input
+                                type="number"
+                                id="codeReview"
+                                class="form-control" formControlName="codeReview">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Provided Support To QA -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="providedSupportToQA">Provided Support To QA</label>
+                        <input
+                                type="number"
+                                id="providedSupportToQA"
+                                class="form-control" formControlName="providedSupportToQA">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Rework -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="rework">Rework</label>
+                        <input
+                                type="number"
+                                id="rework"
+                                class="form-control" formControlName="rework">
+                    </div>
+                </div>
+            </div>
+
+            <hr>
+            <h3 style="text-align: center"> Porting Information</h3><br>
+
+            <!-- Porting required yes or no -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="portingRequired">Porting Required</label>
+                        <div class="radio-inline" *ngFor="let pr of portingRequired">
+                            <li>
+                                <input id="portingRequired" type="radio" formControlName="portingRequired" [value]="pr">{{pr}}
+                            </li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Porting Jira Id -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="portingJiraId">Porting Jira ID</label>
+                        <input
+                                type="text"
+                                id="portingJiraId"
+                                class="form-control" formControlName="portingJiraId">
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Porting Effort -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="portingEffort">Porting Effort</label>
+                        <input
+                                type="number"
+                                id="portingEffort"
+                                class="form-control" formControlName="portingEffort">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Reason (Incase the defect is NOT ported) -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="reason">Reason (Incase the defect is NOT ported)</label>
+                        <textarea name="reason" rows="3" class="form-control" formControlName="reason"></textarea>
+                    </div>
+                </div>
+            </div>
+
+
+            <!-- Total Effort (excluding porting & follow-up) -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="totalEffort">Total Effort (excluding porting & follow-up)</label>
+                        <input
+                                type="number"
+                                id="totalEffort"
+                                class="form-control" formControlName="totalEffort">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Complexity -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="complexity">Complexity</label>
+                        <select class="form-control" id="complexity" formControlName="complexity">
+                            <option *ngFor="let c of complexity">{{c}}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Context Switch(Yes/No) -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="contextSwitch">Context Switch</label>
+                        <div class="radio-inline" *ngFor="let cs of contextSwitch">
+                            <li>
+                                <input id="contextSwitch" type="radio" formControlName="contextSwitch" [value]="cs">{{cs}}
+                            </li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- MonthCode -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="monthCode">Month Code</label>
+                        <input
+                                type="text"
+                                id="monthCode"
+                                class="form-control" formControlName="monthCode">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Duplicate -->
+            <div class="row">
+                <div class="col-xs-12">
+                    <div class="form-group">
+                        <label for="dublicate">Duplicate</label>
+                        <div class="radio-inline" *ngFor="let d of dublicate">
+                            <li>
+                                <input id="dublicate" type="radio" formControlName="dublicate" [value]="d">{{d}}
+                            </li>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+
+            <!-- Submit-->
+            <div class="row">
+                <div class="col-xs-12">
+                    <button
+                            type="submit"
+                            class="btn btn-success"
+                    >Save</button>
+                    <button type="button" class="btn btn-primary" (click)="onUpdate()">Update</button>
+                    <button type="button" class="btn btn-primary" (click)="onClear()">Clear</button>
+                    <button type="button" class="btn btn-danger" (click)="onCancel()">Cancel</button>
+                </div>
+            </div>
+            <br><br>
+
+        </form>
+    </div>
+</div>
+

@@ -1,0 +1,67 @@
+Webstrom:
+---------
+npm install -g bower
+bower install angular --save
+bower install bootstrap
+
+or
+
+install npm 
+create a new project
+npm install angular
+npm install bootstrap
+npm install angular-resource
+npm install angular-messages
+
+
+right click and run in debug mode.
+
+Earlier we have html and javascript 
+1. if html change we need to update the javascript
+2. if javascript change we need to update the html.
+
+Angularjs come with concept of model, view and whatever....
+in which if html change it will change the javascript and vise versa.
+this is done with the help of watchers and digest cycle which we will discuss later.
+
+View ---- $scope ---- Controller
+
+How $scope Works?
+angularApp.controller('mainController', ['$scope', function ($scope) {
+    $scope.name = '';
+}]);
+Behind The Scen: angularApp.controller.toString() will give the string representation of function. We will parse the function and get all parameters pass to this function. Now if parameter matches like '$scope' we will give the $scope object to this parameter.
+
+We can also check this :
+var serachPeople =  function (firstName, lastName) {
+    return 'Rahul Choudhary';
+}
+console.log(angular.injector().annotate(serachPeople));
+console out: ["firstName", "lastName"]
+
+Download Modules, refer it in angular.modules and use.
+
+For Minification order should be same.
+
+Scope and Interpolation:
+------------------------
+Create strings by combining string and placeholders.
+Example: My name is : {{name}}
+
+Directive and Two Way Data Binding:
+-----------------------------------
+Instruction to Angular to manipulate the DOM.
+
+<div ng-controller="mainController">
+
+                <label>Whats your twitter handle ?</label><br>
+                <input type="text" ng-model="handleName">
+
+                <hr>
+                twitter.com/{{handleName}}
+
+</div>
+
+Watchers and Digest Loop:
+-------------------------
+
